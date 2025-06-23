@@ -14,10 +14,11 @@ const josefin_Sans = Josefin_Sans({
 })
 
 const lato = Lato({
-    weight: [ "100", "300" , "400" , "700" ,"900"],
-    variable: '--font-mono',
-    display: 'swap'
-})
+  weight: ["100", "300", "400", "700", "900"],
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 
 export default async function RootLayout({
