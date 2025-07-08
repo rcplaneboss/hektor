@@ -17,11 +17,11 @@ const Header = () => {
       })
     }, mainRef)
 
-    // return ctx.revert();
+    return ctx.revert();
   }, [pathname])
 
 
-  pathname.split("/").shift();
+  pathname.split("/").unshift("");
   const pathArray: string[] = pathname.split("/");
 
   return (

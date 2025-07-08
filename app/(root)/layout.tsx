@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Josefin_Sans, Lato } from 'next/font/google';
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/components/Navbar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/app/components/app-siderbar";
+import { AppSidebar } from "@/components/app-siderbar";
 import { cookies } from "next/headers";
 
 

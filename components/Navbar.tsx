@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Heart, Mail, Phone, Search, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuRadioGroupDemo } from "./DropdownMenuRadioGroupDemo";
-import { navLinks } from "../constants";
+import { navLinks } from "@/app/constants";
 import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 

@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { navLinks, settingLinks } from "../constants";
+import { navLinks, settingLinks } from "@/app/constants";
 
 // Menu items.
 

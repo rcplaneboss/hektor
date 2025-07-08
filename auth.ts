@@ -1,99 +1,113 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthError } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import type { Provider } from "next-auth/providers";
-import supabase from "@/app/lib/supabaseServer";
 
+import {  upsertUser } from "./drizzle/queries/queries";
+
+type User = {
+  id?: string;
+  name: string | null;
+  email: string;
+  hashedPassword?: string;
+  phone?: string | null;
+  image: string | null;
+  provider?: string | null;
+  role?: string | null;
+  createdAt?: Date | null | undefined;
+  updatedAt?: Date | null | undefined;
+};
+
+// Providers
 const providers: Provider[] = [
   Credentials({
-    credentials: { password: { label: "Password", type: "password" } },
-    authorize(c) {
-      if (c.password !== "password") return null;
-      return {
-        id: "test",
-        name: "Test User",
-        email: "test@example.com",
+    name: "Credentials",
+    credentials: {
+      id: { label: "id", type: "text" },
+      email: { label: "Email", type: "text" },
+      name: { label: "Name", type: "text" },
+      image: { label: "Url", type: "url" },
+      role: { label: "Role", type: "text" },
+    },
+    async authorize(credentials): Promise<User | null> {
+      console.log(credentials)
+      const user = credentials as {
+        id: string;
+        email: string;
+        name: string | null;
+        image: string | null;
+        role: string | null;
       };
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user?.name,
+          image: user?.image,
+          role: user?.role,
+        };
+     
     },
   }),
-  Google,
+
+  Google({
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+  }),
 ];
 
+// ✅ Provider Map (optional)
 export const providerMap = providers
-  .map((provider) => {
-    if (typeof provider === "function") {
-      const providerData = provider();
-      return { id: providerData.id, name: providerData.name };
-    } else {
-      return { id: provider.id, name: provider.name };
-    }
-  })
+  .map((provider) =>
+    typeof provider === "function"
+      ? provider()
+      : { id: provider.id, name: provider.name }
+  )
   .filter((provider) => provider.id !== "credentials");
 
+// ✅ Auth.js Handler
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
   pages: {
     signIn: "/home/pages/sign-in",
   },
-
   session: {
     strategy: "jwt",
   },
-
   callbacks: {
-    async signIn({ user, account, profile }) {
-      try {
-        const { name, email, image } = user;
-        const id = account?.providerAccountId;
+    async signIn({ user, account }) {
+      if (account?.provider !== "credentials") {
+        const { email, name, image } = user;
+        const providerId = account?.providerAccountId || user.id;
 
-        const { data, error } = await supabase
-          .from("users")
-          .upsert(
-            {
-              id,
-              name,
-              email,
-              phone_number: "",
-              role: "user",
-              image,
-            },
-            {
-              onConflict: "id",
-              ignoreDuplicates: false,
-              returning: "minimal",
-              defaultToNull: false,
-            }
-          )
-          .select();
-
-        if (error) {
-          console.log("Supabase upsert error.", error);
-          return false;
-        }
-
-        return true;
-      } catch (err) {
-        console.log("Supabase upsert error.", err);
-        return false;
+        await upsertUser({
+          name: name!,
+          email: email!,
+          image: image!
+        })
       }
+
+      return true;
     },
 
-    async jwt({ token, account, profile }) {
-      // Persist the OAuth access_token and or the user id to the token right after signin
-      if (account && profile) {
-        token.accessToken = account.access_token;
-        token.id = profile.id;
-        token.email = profile.email;
-        token.picture = profile.picture;
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
+        token.role = (user as any).role ?? "user";
       }
       return token;
     },
 
-    async session({ session, token}) {
-     
-        session.user.id = token.id
-      
-      return session
+    async session({ session, token }) {
+      if (session.user && token) {
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
+      }
+      return session;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 });
