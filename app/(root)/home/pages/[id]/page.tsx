@@ -1,7 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
-import pathAppend from "@/app/utils/utils";
-import { usePathname } from "next/navigation";
+// app/(root)/home/pages/[id]/page.tsx
 
 interface PageProps {
   params: {
@@ -10,12 +7,6 @@ interface PageProps {
 }
 
 const Page = ({ params }: PageProps) => {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    pathAppend("my-account");
-  }, [pathname]);
-
   return <main>User: {params.id}</main>;
 };
 
