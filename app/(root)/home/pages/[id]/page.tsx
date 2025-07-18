@@ -1,13 +1,17 @@
-// app/(root)/home/pages/[id]/page.tsx
+"use client";
+import React, { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import pathAppend from "@/app/utils/utils";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
+const Page = () => {
+  const pathname = usePathname();
+  const id = pathname?.split("/").pop();
 
-const Page = ({ params }: PageProps) => {
-  return <main>User: {params.id}</main>;
+  useEffect(() => {
+    pathAppend("my-account");
+  }, [pathname]);
+
+  return <main>User: {id}</main>;
 };
 
 export default Page;
