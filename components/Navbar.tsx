@@ -13,7 +13,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <header className="flex justify-center items-center m-0 p-0 sticky top-0 font-mono">
+    <header className="flex justify-center items-center m-0 p-0 sticky top-0 font-mono z-50">
       <nav className="flex flex-col">
         <div className="bg-p2 flex justify-around items-center w-screen h-8 text-white text-sm">
           <div className="flex justify-between items-center w-full md:w-1/3 gap-3 px-3">

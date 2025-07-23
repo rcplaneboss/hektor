@@ -1,9 +1,12 @@
 import React from 'react'
+import HomeBanner from '@/components/HomeBanner'
+import FeaturedProducts from '@/components/FeaturedProducts'
 
 export default function Home(){
     return (
-        <main className='text-p1 text-3xl h-64 w-64 font-sans'>
-            Hektor home page
+        <main className='w-full'>
+        <HomeBanner />
+        <FeaturedProducts />
         </main>
     )
 }

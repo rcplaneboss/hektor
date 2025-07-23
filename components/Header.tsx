@@ -6,7 +6,7 @@ import gsap from "gsap"
 
 const Header = () => {
   const pathname = usePathname();
-  const mainRef = useRef();
+  const mainRef = useRef(null);
 
   useEffect(() => {
   const ctx =  gsap.context(() => {

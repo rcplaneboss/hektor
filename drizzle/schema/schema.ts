@@ -92,7 +92,7 @@ export const orderItems = pgTable("order_items", {
 });
 
 // -----------------------------
-// Newsletter Subscribers (optional)
+// Newsletter Subscribers 
 // -----------------------------
 export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   id: uuid("id").defaultRandom().primaryKey(),
