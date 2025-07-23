@@ -4,5 +4,5 @@ export default function StudioLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>; // or wrap in actual layout structure
+  return <>{children}</>;
 }
