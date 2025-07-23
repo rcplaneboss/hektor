@@ -23,16 +23,16 @@ const HomeBannerContent = ({ content }: Props) => {
     return () => clearInterval(interval);
   }, [totalBanner]);
 
-  useEffect(() => {
-      if (bannerRef.current) {
-          gsap.from(bannerRef.current, {
-              opacity: 0,
-              y: 20,
-              duration: 0.6,
-              ease: "power2.out",
-          });
-      }
-  }, [currentItem]);
+  // useEffect(() => {
+  //     if (bannerRef.current) {
+  //         gsap.from(bannerRef.current, {
+  //             opacity: 0,
+  //             y: 20,
+  //             duration: 0.6,
+  //             ease: "power2.out",
+  //         });
+  //     }
+  // }, [currentItem]);
 
   if (!content.length) return null;
 
@@ -41,8 +41,8 @@ const HomeBannerContent = ({ content }: Props) => {
 
   return (
     <div ref={bannerRef} className="h-full">
-      <div className="flex max-md:flex-col items-center justify-between h-full w-full gap-12 items banner-content opacity-100 ">
-        <div className="flex flex-col gap-y-4 w-[26rem] max-md:h-[50vh]">
+      <div className="flex max-md:flex-col items-center justify-between h-full w-full gap-12 items banner-content opacity-100 max-md:px-2">
+        <div className="flex flex-col gap-y-4 w-[26rem] max-md:w-full max-md:h-[50vh]">
           <small className="text-p7">Shop for best qualities....</small>
 
           <div>
@@ -51,7 +51,7 @@ const HomeBannerContent = ({ content }: Props) => {
             </span>
           </div>
 
-          <div className="font-mono w-96 text-sub-text">
+          <div className="font-mono w-96 max-md:w-full text-sub-text">
             <small>{subtitle}</small>
           </div>
 
@@ -60,7 +60,7 @@ const HomeBannerContent = ({ content }: Props) => {
           </div>
         </div>
 
-        <div className="w-[350px] h-[350px] relative">
+        <div className="w-[350px] h-[350px] relative max-md:w-[250px] max-md:h-[250px]">
           <img
             src="/images/ellipse1.png"
             className="absolute -top-8 -right-4 w-full h-full z-0"
