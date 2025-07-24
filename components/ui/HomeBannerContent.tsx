@@ -60,7 +60,7 @@ const HomeBannerContent = ({ content }: Props) => {
           </div>
         </div>
 
-        <div className="w-[350px] h-[350px] relative max-md:w-[250px] max-md:h-[250px]">
+        <div className="w-[350px] h-[350px] relative max-md:w-[300px] max-md:h-[300px] max-md:-ml-5">
           <img
             src="/images/ellipse1.png"
             className="absolute -top-8 -right-4 w-full h-full z-0"
@@ -80,13 +80,13 @@ const HomeBannerContent = ({ content }: Props) => {
 
 
           {discount && (
-            <div className="flex justify-center items-center z-20 absolute top-0 -right-8 w-24 h-24">
+            <div className="flex justify-center items-center z-20 absolute top-0 -right-8 max-md:right-1 max-md:-top-12 max-md:w-20 max-md:h-20 w-24 h-24">
               <img
                 src="/images/vector-14.png"
                 className="relative"
                 alt="vector"
               />
-              <div className="text-2xl font-sans absolute text-white">
+              <div className="text-2xl max-md:text-xl font-sans absolute text-white">
                 <div>{discount}%</div>
                 <div>off</div>
               </div>
