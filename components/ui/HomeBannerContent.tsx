@@ -23,16 +23,16 @@ const HomeBannerContent = ({ content }: Props) => {
     return () => clearInterval(interval);
   }, [totalBanner]);
 
-  // useEffect(() => {
-  //     if (bannerRef.current) {
-  //         gsap.from(bannerRef.current, {
-  //             opacity: 0,
-  //             y: 20,
-  //             duration: 0.6,
-  //             ease: "power2.out",
-  //         });
-  //     }
-  // }, [currentItem]);
+  useEffect(() => {
+      if (bannerRef.current) {
+          gsap.from(bannerRef.current, {
+              opacity: 0,
+              y: 20,
+              duration: 0.6,
+              ease: "power2.out",
+          });
+      }
+  }, [currentItem]);
 
   if (!content.length) return null;
 
