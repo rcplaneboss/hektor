@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { HomeBanner } from "../../sanity.types";
+import { HOMEBANNER_QUERYResult } from "../../sanity.types";
 import { Button } from "./button";
 import gsap from "gsap";
 
 type Props = {
-  content: HomeBanner[];
+  content: HOMEBANNER_QUERYResult;
 };
 
 const HomeBannerContent = ({ content }: Props) => {
@@ -20,18 +20,35 @@ const HomeBannerContent = ({ content }: Props) => {
       setCurrentItem((prev) => (prev + 1) % totalBanner);
     }, 5000);
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState == 'visible') {
+        clearInterval(interval);
+        
+        setCurrentItem((prev) => (prev + 1) % totalBanner);
+
+         setInterval(() => {
+           setCurrentItem((prev) => (prev + 1) % totalBanner);
+         }, 5000);
+      }
+    }
+
+    document.addEventListener('visibilityChange', handleVisibilityChange);
+    
+    
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
     return () => clearInterval(interval);
   }, [totalBanner]);
 
   useEffect(() => {
-      if (bannerRef.current) {
-          gsap.from(bannerRef.current, {
-              opacity: 0,
-              y: 20,
-              duration: 0.6,
-              ease: "power2.out",
-          });
-      }
+    if (bannerRef.current) {
+      gsap.from(bannerRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
+        overwrite: true,
+      });
+    }
   }, [currentItem]);
 
   if (!content.length) return null;
@@ -56,7 +73,9 @@ const HomeBannerContent = ({ content }: Props) => {
           </div>
 
           <div>
-            <Button className="rounded-xs cursor-pointer bg-p6">{buttonText}</Button>
+            <Button className="rounded-xs cursor-pointer bg-p6">
+              {buttonText}
+            </Button>
           </div>
         </div>
 
@@ -77,7 +96,6 @@ const HomeBannerContent = ({ content }: Props) => {
             className="relative w-full h-full z-10 object-cover"
             alt="banner"
           />
-
 
           {discount && (
             <div className="flex justify-center items-center z-20 absolute top-0 -right-8 max-md:right-1 max-md:-top-12 max-md:w-20 max-md:h-20 w-24 h-24">

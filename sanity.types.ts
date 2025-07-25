@@ -375,3 +375,47 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes = SiteSettings | Page | BlogPost | Testimonial | FeaturedProducts | HomeBanner | Product | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: sanity/lib/queries.ts
+// Variable: HOMEBANNER_QUERY
+// Query: *[_type == "homeBanner"]{  _id,   title,  subtitle,  discount,  image{    asset->{      _id,      url,      metadata { lqip }    },    alt  },  buttonText,  buttonLink,  isActive}
+export type HOMEBANNER_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  subtitle: string | null;
+  discount: number | null;
+  image: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+      } | null;
+    } | null;
+    alt: null;
+  } | null;
+  buttonText: string | null;
+  buttonLink: string | null;
+  isActive: boolean | null;
+}>;
+// Variable: FEATUREDPRODUCTS_QUERY
+// Query: *[_type == "featuredProducts"]{  _id,  title,  layoutStyle,  products[]->{    title,    discount,    discountCode,    "mainImageUrl": images[0].asset->url  }}
+export type FEATUREDPRODUCTS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  layoutStyle: "carousel" | "grid" | null;
+  products: Array<{
+    title: string | null;
+    discount: null;
+    discountCode: null;
+    mainImageUrl: string | null;
+  }> | null;
+}>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "*[_type == \"homeBanner\"]{\n  _id,\n   title,\n  subtitle,\n  discount,\n  image{\n    asset->{\n      _id,\n      url,\n      metadata { lqip }\n    },\n    alt\n  },\n  buttonText,\n  buttonLink,\n  isActive\n}": HOMEBANNER_QUERYResult;
+    "*[_type == \"featuredProducts\"]{\n  _id,\n  title,\n  layoutStyle,\n  products[]->{\n    title,\n    discount,\n    discountCode,\n    \"mainImageUrl\": images[0].asset->url\n  }\n}": FEATUREDPRODUCTS_QUERYResult;
+  }
+}

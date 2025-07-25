@@ -23,15 +23,11 @@ export const FEATUREDPRODUCTS_QUERY =
   _id,
   title,
   layoutStyle,
-  products->{
-      shortDescription
-  },
-  image{
-    asset->{
-      _id,
-      url,
-      metadata { lqip }
-    },
-    alt
+  products[]->{
+    _id,
+    title,
+    discount,
+    discountCode,
+    "mainImageUrl": images[0].asset->url
   }
 }`);
