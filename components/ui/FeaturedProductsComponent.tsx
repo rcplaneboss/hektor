@@ -9,7 +9,7 @@ const FeaturedProductComponents = ({ data }: Props) => {
   const content = data[0]?.products;
   console.log(content?.length); 
   return (
-    <div className="w-full flex justify-center items-center gap-8 flex-wrap">
+    <div className="w-full flex justify-center items-center gap-8 flex-wrap ">
       {content?.map((item) => (
         <FeaturedProductCard key={item._id} data={item} />
       ))}
