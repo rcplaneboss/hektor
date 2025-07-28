@@ -7,12 +7,20 @@ type Props = {
 
 const FeaturedProductComponents = ({ data }: Props) => {
   const content = data[0]?.products;
-  console.log(content?.length); 
+  console.log(content?.length);
   return (
-    <div className="w-full flex justify-center items-center gap-8 flex-wrap ">
-      {content?.map((item) => (
-        <FeaturedProductCard key={item._id} data={item} />
-      ))}
+    <div className="w-full ">
+      <div
+        className={`w-full flex items-center gap-8 ${data.layoutStyle === "grid" ? "flex-wrap" : "flex-nowrap no-scrollbar overflow-auto"}`}
+      >
+        {content?.map((item) => (
+          <FeaturedProductCard key={item._id} data={item} />
+        ))}
+      </div>
+
+      <div className="w-full flex justify-center items-center gap-2">
+        
+      </div>
     </div>
   );
 };

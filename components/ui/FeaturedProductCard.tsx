@@ -11,9 +11,8 @@ type data = {
 
 const FeaturedProductCard = ({ data }: { data: data }) => {
   return (
-      <div className="flex flex-col h-60 w-44 group relative shadow-sm">
-          
-      <div className="hidden group-hover:flex justify-start w-full  absolute top-0 pt-[5px] pl-2 gap-[3px] z-20">
+    <div className="flex flex-col h-60 min-w-44 group relative shadow-sm flex-skrink-0">
+      <div className="hidden group-hover:flex justify-start w-full absolute top-0 pt-[5px] pl-2 gap-[3px] z-20">
         <div className="p-1 hover:bg-gray-300 cursor-pointer rounded-full">
           <ShoppingCart color="blue" className="w-3.5 h-3.5" />
         </div>
@@ -26,9 +25,9 @@ const FeaturedProductCard = ({ data }: { data: data }) => {
           <ZoomIn color="blue" className="w-3.5 h-3.5" />
         </div>
       </div>
-      <div className="w-full h-4/6 flex  justify-center items-center relative bg-gray-50">
+      <div className="w-full h-[65%] flex  justify-center items-center relative bg-gray-50">
         <img src={data.mainImageUrl} className="w-28 h-28 object-cover " />
-        <div className=" justify-center items-center w-full text-[10px] hidden group-hover:flex absolute bottom-0 transition-all duration-500">
+        <div className=" justify-center items-center w-full text-[10px] hidden group-hover:flex absolute bottom-3 transition-all duration-500">
           <Link
             href={`/home/pages/product-details/${data._id ?? ""}`}
             className="p-1 bg-green-500 font-mono text-white"
@@ -36,25 +35,25 @@ const FeaturedProductCard = ({ data }: { data: data }) => {
             View Details
           </Link>
         </div>
-          </div>
-          
-      <div className="flex flex-col gap-2 group-hover:bg-p2 justify-center items-center h-2/6">
+      </div>
+
+      <div className="flex flex-col gap-2 group-hover:bg-p2 justify-center items-center h-[35%] py-2">
         <div className="font-sans text-xs group-hover:bg-p2 line-clamp-2 text-p6 group-hover:text-white w-full px-1 text-center">
           {data.title}
         </div>
 
         <div className="flex justify-center items-center gap-1 w-9">
-            <div className="w-3 bg-p1"></div>
-            <div className="w-3 bg-p6"></div>
-            <div className="w-3 bg-p3"></div>
+          <div className="w-3 h-0.5 bg-gray-300"></div>
+          <div className="w-3 h-0.5 bg-p6"></div>
+          <div className="w-3 h-0.5 bg-p3"></div>
         </div>
 
+        {data.discount && (<div className="font-sans text-[10px] text-p2 group-hover:text-white">
+          Code . {data.discountCode}
+        </div>)}
+
         <div className="font-sans text-[10px] text-p2 group-hover:text-white">
-            Code . {data.discountCode}
-              </div>
-              
-        <div className="font-sans text-[10px] text-p2 group-hover:text-white">
-            $48.00
+          $48.00
         </div>
       </div>
     </div>
