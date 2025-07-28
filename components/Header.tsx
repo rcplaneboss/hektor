@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <section className="flex items-center font-sans py-16 bg-gray-100">
-      <main className="pl-24  md:pl-36 lg:pl-56" ref={mainRef}>
+      <main className="px-8  md:pl-36 lg:pl-56" ref={mainRef}>
         <div className="text-3xl text-p1">
           {pathArray[pathArray.length - 1].includes("-")
             ? pathArray[pathArray.length - 1]
