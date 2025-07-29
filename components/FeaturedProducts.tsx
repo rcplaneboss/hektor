@@ -17,7 +17,7 @@ const FeaturedProducts = async () => {
         </div>
 
         {featuredproducts ? (
-          <div className="flex items-center justify-center w-full px-44 py-12 max-sm:px-8">
+          <div className="flex items-center justify-center w-full px-44 max-md:px-30 py-12 max-sm:px-8">
             <FeaturedProductComponents data={featuredproducts} />
           </div>
         ) : (
