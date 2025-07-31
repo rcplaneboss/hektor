@@ -12,11 +12,14 @@ const FeaturedProductComponents = ({ data }: Props) => {
   const content = data[0]?.products;
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const productVisiblePerScroll = isMobile ? 5 : 3;
+  const isSmallDevice = useMediaQuery({ query: "(max-width: 640px)" });
+  const productVisiblePerScroll = isSmallDevice ? 2 : isMobile ? 3 : 5;
+
 
   const scrollIndicators = useMemo(() => {
     if (!content) return [];
     const total = Math.ceil(content.length / productVisiblePerScroll);
+    console.log(total);
     return Array.from({ length: total }, (_, i) => i + 1);
   }, [content, productVisiblePerScroll]);
 
