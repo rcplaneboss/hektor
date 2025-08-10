@@ -27,9 +27,9 @@ const features = [
 
 const FeaturesHomeSection = () => {
   return (
-    <div className="flex flex-col justify-center items-center py-16 w-screen px-36">
+    <div className="flex flex-col justify-center items-center py-16 w-screen px-36 max-md:px-10">
       <SectionTitle title="What Shopex Offers!" />
-      <div className="flex justify-center items-center gap-4 mt-10">
+      <div className="flex justify-center items-center gap-4 mt-10 flex-wrap">
         {features.map((feature, index) => (
           <div key={index} className="py-5 px-8 bg-white shadow-md flex flex-col items-center text-center gap-3 w-48 h-50">
             <img
