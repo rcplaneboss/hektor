@@ -31,3 +31,12 @@ export const FEATUREDPRODUCTS_QUERY =
     "mainImageUrl": images[0].asset->url
   }
 }`);
+
+export const LATESTPRODUCTS_QUERY =
+  defineQuery(`*[_type == "product"  && ("newArrival" in tags[] || "bestSeller" in tags[] || "specialOffer" in tags[])] | order(_createdAt desc)[0...6] {
+    _id,
+    title,
+    discount,
+    tags[],
+    "mainImageUrl": images[0].asset->url
+}`);

@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { HOMEBANNER_QUERY } from "@/sanity/lib/queries";
 import HomeBannerContent from "./ui/HomeBannerContent";
 
-export const revalidate = 0;
+
 
 const HomeBanner = async () => {
   const bannerData : HOMEBANNER_QUERYResult = await client.fetch(HOMEBANNER_QUERY);
